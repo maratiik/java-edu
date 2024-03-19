@@ -34,7 +34,6 @@ public class UserDaoJDBCImpl implements UserDao {
             stmt.executeUpdate(CREATE);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         } finally {
             try {
                 if (stmt != null) {
@@ -45,7 +44,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
-                e.printStackTrace();
             }
         }
     }
@@ -59,7 +57,6 @@ public class UserDaoJDBCImpl implements UserDao {
             stmt.executeUpdate(DROP);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         } finally {
             try {
                 if (stmt != null) {
@@ -70,7 +67,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
-                e.printStackTrace();
             }
         }
     }
@@ -89,7 +85,6 @@ public class UserDaoJDBCImpl implements UserDao {
             stmt.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         } finally {
             try {
                 if (stmt != null) {
@@ -100,7 +95,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
-                e.printStackTrace();
             }
         }
     }
@@ -115,7 +109,6 @@ public class UserDaoJDBCImpl implements UserDao {
             stmt.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         } finally {
             try {
                 if (stmt != null) {
@@ -126,7 +119,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
-                e.printStackTrace();
             }
         }
     }
@@ -148,7 +140,6 @@ public class UserDaoJDBCImpl implements UserDao {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         } finally {
             try {
                 if (stmt != null) {
@@ -159,7 +150,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
-                e.printStackTrace();
             }
         }
         return list;
@@ -174,7 +164,6 @@ public class UserDaoJDBCImpl implements UserDao {
             stmt.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         } finally {
             try {
                 if (stmt != null) {
@@ -185,7 +174,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
-                e.printStackTrace();
             }
         }
     }

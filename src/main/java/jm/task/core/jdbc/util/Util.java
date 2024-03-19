@@ -13,14 +13,9 @@ public class Util {
     public static Connection getConnection() {
         try {
             Class.forName(DRIVER_NAME);
-            Connection conn = DriverManager.getConnection(DB_URL, ID, PASS);
-            return conn;
-        } catch (SQLException e) {
+            return DriverManager.getConnection(DB_URL, ID, PASS);
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
         }
         return null;
     }
