@@ -53,8 +53,10 @@ public class UserDaoJDBCImpl implements UserDao {
         Statement stmt = null;
         try {
             conn = Util.getConnection();
-            stmt = conn.createStatement();
-            stmt.executeUpdate(DROP);
+            if (conn != null) {
+                stmt = conn.createStatement();
+                stmt.executeUpdate(DROP);
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -76,13 +78,15 @@ public class UserDaoJDBCImpl implements UserDao {
         PreparedStatement stmt = null;
         try {
             conn = Util.getConnection();
-            stmt = conn.prepareStatement(SAVE_USER);
+            if (conn != null) {
+                stmt = conn.prepareStatement(SAVE_USER);
 
-            stmt.setString(1, name);
-            stmt.setString(2, lastName);
-            stmt.setByte(3, age);
+                stmt.setString(1, name);
+                stmt.setString(2, lastName);
+                stmt.setByte(3, age);
 
-            stmt.execute();
+                stmt.execute();
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
