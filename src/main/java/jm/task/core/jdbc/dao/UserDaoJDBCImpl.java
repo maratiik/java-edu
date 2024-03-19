@@ -28,8 +28,10 @@ public class UserDaoJDBCImpl implements UserDao {
         Statement stmt = null;
         try {
             conn = Util.getConnection();
-            stmt = conn.createStatement();
-            stmt.executeUpdate(CREATE);
+            if (conn != null) {
+                stmt = conn.createStatement();
+                stmt.executeUpdate(CREATE);
+            }
         } catch (SQLException | NullPointerException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -102,9 +104,11 @@ public class UserDaoJDBCImpl implements UserDao {
         PreparedStatement stmt = null;
         try {
             conn = Util.getConnection();
-            stmt = conn.prepareStatement(REMOVE);
-            stmt.setLong(1, id);
-            stmt.execute();
+            if (conn != null) {
+                stmt = conn.prepareStatement(REMOVE);
+                stmt.setLong(1, id);
+                stmt.execute();
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -127,14 +131,16 @@ public class UserDaoJDBCImpl implements UserDao {
         PreparedStatement stmt = null;
         try {
             conn = Util.getConnection();
-            stmt = conn.prepareStatement(GET_ALL);
-            ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                User user = new User(rs.getString("name"),
-                                     rs.getString("lastName"),
-                                     rs.getByte("age"));
-                list.add(user);
+            if (conn != null) {
+                stmt = conn.prepareStatement(GET_ALL);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    User user = new User(rs.getString("name"),
+                            rs.getString("lastName"),
+                            rs.getByte("age"));
+                    list.add(user);
+                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -158,8 +164,10 @@ public class UserDaoJDBCImpl implements UserDao {
         PreparedStatement stmt = null;
         try {
             conn = Util.getConnection();
-            stmt = conn.prepareStatement(CLEAN);
-            stmt.execute();
+            if (conn != null) {
+                stmt = conn.prepareStatement(CLEAN);
+                stmt.execute();
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
