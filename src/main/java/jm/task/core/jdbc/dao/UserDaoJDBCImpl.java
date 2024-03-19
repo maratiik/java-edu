@@ -3,8 +3,6 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
-import javax.management.relation.RelationSupport;
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,7 @@ public class UserDaoJDBCImpl implements UserDao {
             conn = Util.getConnection();
             stmt = conn.createStatement();
             stmt.executeUpdate(CREATE);
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             System.out.println(e.getMessage());
         } finally {
             try {
