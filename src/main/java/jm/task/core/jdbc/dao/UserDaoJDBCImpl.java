@@ -23,168 +23,69 @@ public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
     }
 
+    @Override
     public void createUsersTable() {
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            conn = Util.getConnection();
-            if (conn != null) {
-                stmt = conn.createStatement();
-                stmt.executeUpdate(CREATE);
-            }
-        } catch (SQLException | NullPointerException e) {
+        try (Statement stmt = Util.getConnection().createStatement()) {
+            stmt.executeUpdate(CREATE);
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
         }
     }
 
+    @Override
     public void dropUsersTable() {
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            conn = Util.getConnection();
-            if (conn != null) {
-                stmt = conn.createStatement();
-                stmt.executeUpdate(DROP);
-            }
+        try (Statement stmt = Util.getConnection().createStatement()) {
+            stmt.executeUpdate(DROP);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
         }
     }
 
+    @Override
     public void saveUser(String name, String lastName, byte age) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try {
-            conn = Util.getConnection();
-            if (conn != null) {
-                stmt = conn.prepareStatement(SAVE_USER);
-
-                stmt.setString(1, name);
-                stmt.setString(2, lastName);
-                stmt.setByte(3, age);
-
-                stmt.execute();
-            }
+        try (PreparedStatement stmt = Util.getConnection().prepareStatement(SAVE_USER)) {
+            stmt.setString(1, name);
+            stmt.setString(2, lastName);
+            stmt.setByte(3, age);
+            stmt.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
         }
     }
 
+    @Override
     public void removeUserById(long id) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try {
-            conn = Util.getConnection();
-            if (conn != null) {
-                stmt = conn.prepareStatement(REMOVE);
-                stmt.setLong(1, id);
-                stmt.execute();
-            }
+        try (PreparedStatement stmt = Util.getConnection().prepareStatement(REMOVE)) {
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
         }
     }
 
+    @Override
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try {
-            conn = Util.getConnection();
-
-            if (conn != null) {
-                stmt = conn.prepareStatement(GET_ALL);
-                ResultSet rs = stmt.executeQuery();
-                while (rs.next()) {
-                    User user = new User(rs.getString("name"),
-                            rs.getString("lastName"),
-                            rs.getByte("age"));
-                    list.add(user);
-                }
+        try (PreparedStatement stmt = Util.getConnection().prepareStatement(GET_ALL)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(new User(rs.getString("name"),
+                        rs.getString("lastName"),
+                        rs.getByte("age")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
         }
         return list;
     }
 
+    @Override
     public void cleanUsersTable() {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try {
-            conn = Util.getConnection();
-            if (conn != null) {
-                stmt = conn.prepareStatement(CLEAN);
-                stmt.execute();
-            }
+        try (Statement stmt = Util.getConnection().createStatement()) {
+            stmt.executeUpdate(CLEAN);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
         }
     }
 }
+
