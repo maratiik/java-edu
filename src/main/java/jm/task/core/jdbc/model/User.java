@@ -63,7 +63,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [name=" + name + ", lastName=" + lastName + ", age=" + String.valueOf(age)+ "]";
+        return "User [name=" + name + ", lastName=" + lastName + ", age=" + age + "]";
     }
 
     @Override
